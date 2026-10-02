@@ -81,3 +81,46 @@ does not implement parameter maps or COMSOL integration.
 Additional tests check all 20 presets, tangential electric fields on all PEC walls,
 Maxwell's curl equations in propagating/evanescent/cutoff regimes, the known TE10
 profile, normalization bounds, slice coordinates, invalid indices and UI controls.
+
+## Cylindrical Inclusion Fields
+
+The additional Cylindrical Inclusion page implements the local TM-z basis in
+Calculation_II.pdf §§12–20, pp.24–29. Choose the lower dielectric disk or upper
+annulus independently. The upper basis is the J/Y combination satisfying Ez=0
+at the vertical PEC core wall. The lower basis excludes singular Y functions
+and uses finite Cartesian axis limits. Controls include m, cosine/sine family,
+frequency, cylinder permittivity, geometry, and a freely chosen kz/kd < 1.
+
+All six Cartesian or cylindrical components can be displayed on x–y, x–z, or y–z
+slices and as a component-colored slice in the 3D composite cylinder. The metal
+core occupies only h/2≤z≤h; it is not a thin disk. The other region and exterior
+are masked as uncomputed. The matching plane z=h/2 is intentionally excluded.
+
+This page is NOT a solution of the complete inclusion eigenproblem. A single
+traveling local basis does not satisfy the horizontal PEC faces, interface
+continuity, exterior dielectric matching or upper port conditions. No outer PEC
+cylinder boundary or eigenfrequency formula is invented. Amplitudes use a sampled
+radial normalization and E0 in V/m; optional display scales preserve relative
+components within E and H separately. They are not power-normalized modes.
+
+Tests verify Maxwell curls for both regions, several angular families, the core
+wall condition, axis limits, masking, and UI region/plane changes.
+
+### Waveguide–cylinder correspondence
+
+The cylindrical page now includes a shared rectangular-guide geometry, selectable
+TE/TM reference mode and component, a Cartesian/cylindrical transformation table,
+and a probe around rho=b. Boundary traces compare Ephi, Ez, Hphi and Hz at a fixed
+height inside the selected local region. Optional independent E/H normalization
+compares shapes only. SI complex probe values retain their arbitrary amplitudes.
+
+The reference guide is centered around the cylinder, with amplitude/phase origin
+at x=-length/2; below cutoff it decays in +x. The guide reference and cylinder
+basis are shown as separate layers, not added. The total exterior field must
+include scattered modes before tangential continuity can be enforced. The
+interface comparisons are not a solved boundary residual or coupling constant.
+
+For a port normal to x, the reference overlap follows Calculation_II.pdf pp.30–32.
+For TE10 it reduces to minus the integral of Ez,n Hy,10* + Ez,10* Hy,n, with
+Hy,n=Hrho,n sin(phi)+Hphi,n cos(phi). Evaluating W requires the resonant field at
+the waveguide port and energy/power normalization, which remain unresolved.

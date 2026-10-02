@@ -5,11 +5,11 @@ from plotly.subplots import make_subplots
 from physics.modes import COMPONENTS, displayed
 
 
-def field_panels(u,v,values,axes,scales,representation,phase,normalized=True):
+def field_panels(u,v,values,axes,scales,representation,phase,normalized=True,components=COMPONENTS):
     magnitude=representation=='Magnitude |F|'
-    fig=make_subplots(rows=2,cols=3,subplot_titles=list(COMPONENTS),
+    fig=make_subplots(rows=2,cols=3,subplot_titles=list(components),
                       horizontal_spacing=.065,vertical_spacing=.22)
-    for i,k in enumerate(COMPONENTS):
+    for i,k in enumerate(components):
         scale=scales[0 if k[0]=='E' else 1]
         data=displayed(values[k],representation,phase)
         limit=1. if normalized else scale
